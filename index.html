@@ -314,7 +314,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker
-                .register('https://lverapizza.github.io/APP/firebase-messaging-sw.js')
+                .register('/APP/firebase-messaging-sw.js')
                 .then((registration) => {
                     console.log('Service Worker registrado con éxito: 2', registration);
                 })
