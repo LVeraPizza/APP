@@ -312,17 +312,14 @@
         setInterval(createSnowflake, 300); // Genera un copo nuevo cada 300ms
     </script>-->
     <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker
-                .register('/APP/firebase-messaging-sw.js')
-                .then((registration) => {
-                    console.log('Service Worker registrado con éxito: 2', registration);
-                })
-                .catch((error) => {
-                    console.error('Error al registrar el Service Worker:', error);
-                });
-        }
-
+        navigator.serviceWorker.register('/firebase-messaging-sw.js')
+            .then((registration) => {
+                console.log('Service Worker registrado correctamente:', registration);
+                messaging.useServiceWorker(registration);
+            })
+            .catch((error) => {
+                console.error('Error al registrar el Service Worker:', error);
+            });
     </script>
 
     <script type="module">
