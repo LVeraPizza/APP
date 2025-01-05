@@ -1,23 +1,33 @@
-// Importar Firebase
-importScripts('https://www.gstatic.com/firebasejs/9.10.0/firebase-app-compat.js');
-importScripts('https://www.gstatic.com/firebasejs/9.10.0/firebase-messaging-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/9.18.0/firebase-messaging.js');
 
-// Configuración de Firebase (usa la misma que en tu proyecto)
 const firebaseConfig = {
     apiKey: "AIzaSyCzMNKimcw1kaaJlMdTKj7RAdlsHyaImBk",
     authDomain: "vera-pizza-app.firebaseapp.com",
     projectId: "vera-pizza-app",
-    storageBucket: "vera-pizza-app.firebasestorage.app",
+    storageBucket: "vera-pizza-app.appspot.com",
     messagingSenderId: "783988757356",
     appId: "1:783988757356:web:c66d3f2571aff0f125d949",
     measurementId: "G-FNLSPHKXFW"
 };
 
-// Inicializa Firebase usando la versión compat
+// Inicializa Firebase en el SW
 firebase.initializeApp(firebaseConfig);
 
-// Obtén la instancia de Firebase Messaging
+// Obtén el servicio de mensajería
 const messaging = firebase.messaging();
+
+// Maneja la notificación cuando se recibe en segundo plano
+messaging.onBackgroundMessage(function(payload) {
+    console.log("Recibido en segundo plano", payload);
+    const notificationTitle = 'Nuevo pedido';
+    const notificationOptions = {
+        body: payload.notification.body,
+        icon: '/img/logo_vera_pizza.png',
+    };
+
+    self.registration.showNotification(notificationTitle, notificationOptions);
+});
 
 // Instalación y cacheo de archivos
 self.addEventListener('install', (event) => {
