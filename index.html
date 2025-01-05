@@ -313,7 +313,7 @@
     </script>-->
 
 <script type="module">
-console.log("El script de Firebase se está ejecutando...");
+
     // Importar Firebase y Cloud Messaging
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
     import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-messaging.js";
@@ -343,10 +343,11 @@ console.log("El script de Firebase se está ejecutando...");
 
     // Inicializar el servicio de mensajería
     const messaging = getMessaging(app);
-console.log("hasta aca llegamos");
+
             
 const requestNotificationPermission = async () => {
     try {
+console.log("El script de Firebase se está ejecutando...");
         console.log("Verificando permisos de notificación...");
 
         // Verificar si el permiso está en su estado predeterminado
