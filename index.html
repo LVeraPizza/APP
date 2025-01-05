@@ -328,12 +328,6 @@
         measurementId: "G-FNLSPHKXFW"
     };
 
-    // Inicializar Firebase
-    const app = initializeApp(firebaseConfig);
-
-    // Inicializar el servicio de mensajería
-    const messaging = getMessaging(app);
-
     // Registrar el Service Worker
     navigator.serviceWorker.register('firebase-messaging-sw.js')
         .then((registration) => {
@@ -342,6 +336,14 @@
         .catch((error) => {
             console.error('Error al registrar el Service Worker:', error);
         });
+
+    // Inicializar Firebase
+    const app = initializeApp(firebaseConfig);
+
+    // Inicializar el servicio de mensajería
+    const messaging = getMessaging(app);
+
+
 
     // Solicitar permisos para notificaciones
     const requestNotificationPermission = async () => {
