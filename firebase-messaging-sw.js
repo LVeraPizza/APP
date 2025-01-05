@@ -6,7 +6,7 @@ const firebaseConfig = {
     apiKey: "AIzaSyCzMNKimcw1kaaJlMdTKj7RAdlsHyaImBk",
     authDomain: "vera-pizza-app.firebaseapp.com",
     projectId: "vera-pizza-app",
-    storageBucket: "vera-pizza-app.appspot.com",
+    storageBucket: "vera-pizza-app.firebasestorage.app",
     messagingSenderId: "783988757356",
     appId: "1:783988757356:web:c66d3f2571aff0f125d949",
     measurementId: "G-FNLSPHKXFW"
