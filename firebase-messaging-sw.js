@@ -2,20 +2,20 @@ importScripts('https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/9.18.0/firebase-messaging.js');
 
 const firebaseConfig = {
-        apiKey: "AIzaSyCzMNKimcw1kaaJlMdTKj7RAdlsHyaImBk",
-        authDomain: "vera-pizza-app.firebaseapp.com",
-        projectId: "vera-pizza-app",
-        storageBucket: "vera-pizza-app.appspot.com",
-        messagingSenderId: "783988757356",
-        appId: "1:783988757356:web:c66d3f2571aff0f125d949",
-        measurementId: "G-FNLSPHKXFW"
+    apiKey: "AIzaSyCzMNKimcw1kaaJlMdTKj7RAdlsHyaImBk",
+    authDomain: "vera-pizza-app.firebaseapp.com",
+    projectId: "vera-pizza-app",
+    storageBucket: "vera-pizza-app.appspot.com",
+    messagingSenderId: "783988757356",
+    appId: "1:783988757356:web:c66d3f2571aff0f125d949",
+    measurementId: "G-FNLSPHKXFW"
 };
 
 // Inicializa Firebase en el SW
 firebase.initializeApp(firebaseConfig);
 
 // Obtén el servicio de mensajería
-const messaging = firebase.messaging(app);
+const messaging = firebase.messaging();
 
 // Gestiona la recepción de notificaciones en segundo plano
 messaging.onBackgroundMessage((payload) => {
@@ -30,6 +30,7 @@ messaging.onBackgroundMessage((payload) => {
 
     // Muestra la notificación
     self.registration.showNotification(notificationTitle, notificationOptions);
+});
 
 // Instalación y cacheo de archivos
 self.addEventListener('install', (event) => {
@@ -60,3 +61,4 @@ self.addEventListener('fetch', (event) => {
         })
     );
 });
+
