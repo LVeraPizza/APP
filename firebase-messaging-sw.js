@@ -41,7 +41,7 @@ self.addEventListener('install', (event) => {
                 '/styles.css',
                 '/script.js',
                 '/img/logo_vera_pizza.png',
-                '/firebase-messaging-sw.js',
+                'firebase-messaging-sw.js',
                 // Agrega otros archivos necesarios
             ]).catch((error) => {
                 console.error('Error al almacenar en caché:', error);
