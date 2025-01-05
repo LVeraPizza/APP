@@ -341,22 +341,23 @@
     // Inicializar Firebase
     const app = initializeApp(firebaseConfig);
 
-    // Inicializar el servicio de mensajería
+    console.log("Inicializando el servicio de mensajería...");
+try {
     const messaging = getMessaging(app);
+    console.log("Servicio de mensajería inicializado.");
+} catch (error) {
+    console.error("Error al inicializar el servicio de mensajería:", error);
+}
 
-            
 const requestNotificationPermission = async () => {
     try {
-console.log("El script de Firebase se está ejecutando...");
         console.log("Verificando permisos de notificación...");
 
-        // Verificar si el permiso está en su estado predeterminado
         if (Notification.permission === 'default') {
             console.log("Solicitud de permiso de notificación...");
             const permission = await Notification.requestPermission();
             console.log("Permiso recibido:", permission);
 
-            // Verificar si el permiso fue concedido
             if (permission !== 'granted') {
                 console.error('El usuario no ha concedido permisos para notificaciones.');
                 return;
@@ -365,22 +366,20 @@ console.log("El script de Firebase se está ejecutando...");
             console.log("Permiso ya está configurado:", Notification.permission);
         }
 
-        // Si el permiso fue concedido, intentar obtener el token
         const token = await getToken(messaging, {
             vapidKey: "VzdDCESXcapcbpijBpRpW5vnqHzq6Pe9YUiGs0v-l2Q"
         });
 
         if (token) {
             console.log("FCM Token obtenido:", token);
-            localStorage.setItem('fcmToken', token); // Guardar el token
+            localStorage.setItem('fcmToken', token); 
         } else {
-            console.error("No se pudo obtener el token. Es posible que el usuario haya rechazado los permisos.");
+            console.error("No se pudo obtener el token.");
         }
     } catch (err) {
         console.error("Error al obtener el token de FCM:", err);
     }
 };
-
 
 </script>
 
