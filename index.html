@@ -342,49 +342,7 @@
 
     // Inicializar el servicio de mensajería
     const messaging = getMessaging(app);
-
-    // Solicitar permisos para notificaciones
-    const requestNotificationPermission = async () => {
-        try {
-            if (Notification.permission === 'default') {
-                await Notification.requestPermission();
-            }
-
-            if (Notification.permission !== 'granted') {
-                console.error('El usuario no ha concedido permisos para notificaciones.');
-                return;
-            }
-
-            // Obtener el token FCM
-            const currentToken = await getToken(messaging, {
-                vapidKey: "BBXezko_271Xj7E6B2hK-M3i_80PWZOXQvQ8FbDphcoViRMGOyLKoiVhbU7VwQ-gt3UAW3JXsbFWmd7YG5xBn78"  // Tu clave VAPID
-            });
-
-            if (currentToken) {
-                console.log("FCM Token obtenido:", currentToken);
-                // Guardar el token en localStorage
-                localStorage.setItem('fcmToken', currentToken);
-                console.log("Token guardado en localStorage.");
-            } else {
-                console.log('No se pudo obtener el token. Es posible que el usuario haya rechazado los permisos.');
-            }
-        } catch (err) {
-            console.error("Error al obtener el token de FCM:", err);
-        }
-    };
-
-    // Llamar a la función para solicitar permisos y obtener el token
-    requestNotificationPermission();
-
-    // Recuperar el token almacenado en localStorage cuando la página cargue
-    window.onload = () => {
-        const storedToken = localStorage.getItem('fcmToken');
-        if (storedToken) {
-            console.log("Token recuperado desde localStorage:", storedToken);
-        } else {
-            console.log("No se ha encontrado un token en localStorage.");
-        }
-    };
+            
 </script>
 
 
