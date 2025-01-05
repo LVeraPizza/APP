@@ -343,8 +343,6 @@
     // Inicializar el servicio de mensajería
     const messaging = getMessaging(app);
 
-
-
     // Solicitar permisos para notificaciones
     const requestNotificationPermission = async () => {
         try {
@@ -364,6 +362,10 @@
 
             if (token) {
                 console.log("FCM Token obtenido:", token);
+
+                // Guardar el token en localStorage
+                localStorage.setItem('fcmToken', token);
+                console.log("Token guardado en localStorage.");
             } else {
                 console.error("No se pudo obtener el token. Es posible que el usuario haya rechazado los permisos.");
             }
@@ -372,7 +374,18 @@
         }
     };
 
+    // Llamar a la función para solicitar permisos y obtener el token
+    requestNotificationPermission();
+
+    // Recuperar el token almacenado en localStorage
+    const storedToken = localStorage.getItem('fcmToken');
+    if (storedToken) {
+        console.log("Token recuperado desde localStorage:", storedToken);
+    } else {
+        console.log("No se ha encontrado un token en localStorage.");
+    }
 </script>
+
 
 
 
