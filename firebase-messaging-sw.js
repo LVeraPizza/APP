@@ -1,7 +1,6 @@
 // firebase-messaging-sw.js
-importScripts('https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/9.18.0/firebase-messaging.js');
-
+importScripts('https://www.gstatic.com/firebasejs/9.10.0/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/9.10.0/firebase-messaging-compat.js');
 // Configuración de Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyCzMNKimcw1kaaJlMdTKj7RAdlsHyaImBk",
