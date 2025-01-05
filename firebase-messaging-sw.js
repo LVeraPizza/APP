@@ -33,22 +33,25 @@ messaging.onBackgroundMessage((payload) => {
     self.registration.showNotification(notificationTitle, notificationOptions);
 });
 
-// Instalación y cacheo de archivos (opcional si necesitas un Service Worker para cachear)
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open('my-cache-name').then((cache) => {
+            console.log('Abriendo el caché...');
+
             return cache.addAll([
-                'https://lverapizza.github.io/App/index.html',  // Usa rutas relativas para producción
-                'https://lverapizza.github.io/App/styles.css',
-                'https://lverapizza.github.io/App/script.js',
-                'https://lverapizza.github.io/App/img/logo_vera_pizza.png',
-                // Agrega otros archivos necesarios
-            ]).catch((error) => {
+                '/App/index.html',
+                '/App/styles.css',
+                '/App/script.js',
+                '/App/img/logo_vera_pizza.png',
+            ]).then(() => {
+                console.log('Archivos añadidos al caché con éxito');
+            }).catch((error) => {
                 console.error('Error al almacenar en caché:', error);
             });
         })
     );
 });
+
 
 // Manejo de solicitudes de red (opcional si necesitas manejar el cacheo de archivos)
 self.addEventListener('fetch', (event) => {
