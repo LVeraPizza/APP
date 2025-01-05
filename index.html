@@ -311,78 +311,78 @@
     
         setInterval(createSnowflake, 300); // Genera un copo nuevo cada 300ms
     </script>-->
-    <script>
-        navigator.serviceWorker.register('firebase-messaging-sw.js')
-            .then((registration) => {
-                console.log('Service Worker registrado correctamente:', registration);
-                messaging.useServiceWorker(registration);
-            })
-            .catch((error) => {
-                console.error('Error al registrar el Service Worker:', error);
-            });
-    </script>
 
-    <script type="module">
-        // Importa Firebase y el módulo de Cloud Messaging
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
-        import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-messaging.js";
+   <script type="module">
+    // Importa Firebase y el módulo de Cloud Messaging
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+    import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-messaging.js";
 
-        // Configuración de Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyCzMNKimcw1kaaJlMdTKj7RAdlsHyaImBk",
-            authDomain: "vera-pizza-app.firebaseapp.com",
-            projectId: "vera-pizza-app",
-            storageBucket: "vera-pizza-app.appspot.com",
-            messagingSenderId: "783988757356",
-            appId: "1:783988757356:web:c66d3f2571aff0f125d949",
-            measurementId: "G-FNLSPHKXFW"
-        };
+    // Configuración de Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyCzMNKimcw1kaaJlMdTKj7RAdlsHyaImBk",
+        authDomain: "vera-pizza-app.firebaseapp.com",
+        projectId: "vera-pizza-app",
+        storageBucket: "vera-pizza-app.appspot.com",
+        messagingSenderId: "783988757356",
+        appId: "1:783988757356:web:c66d3f2571aff0f125d949",
+        measurementId: "G-FNLSPHKXFW"
+    };
 
-        // Inicializa Firebase
-        const app = initializeApp(firebaseConfig);
+    // Inicializa Firebase
+    const app = initializeApp(firebaseConfig);
 
-        // Inicializa el servicio de mensajería
-        const messaging = getMessaging(app);
+    // Inicializa el servicio de mensajería
+    const messaging = getMessaging(app);
 
-        const requestNotificationPermission = async () => {
-            try {
-                // Verifica si los permisos de notificación están habilitados
-                if (Notification.permission === 'default') {
-                    await Notification.requestPermission();
-                }
-
-                if (Notification.permission !== 'granted') {
-                    console.error('El usuario no ha concedido permisos para notificaciones.');
-                    return;
-                }
-
-                // Obtén el token de FCM
-                const token = await getToken(messaging, {
-                    vapidKey: "BPRKz7-_9El7FWTG7hpCTGhl_cPRoWK79Ng2UwgOuctmGQc3sxG0Rg2io2aAsvYFvBDPmF9vd-6g6oG65XQmJ4A"
-                });
-
-                if (token) {
-                    console.log("FCM Token obtenido:", token);
-                } else {
-                    console.error("No se pudo obtener el token. Es posible que el usuario haya rechazado los permisos.");
-                }
-            } catch (err) {
-                console.error("Error al obtener el token de FCM:", err);
+    // Solicita permisos para notificaciones
+    const requestNotificationPermission = async () => {
+        try {
+            // Verifica si los permisos de notificación están habilitados
+            if (Notification.permission === 'default') {
+                await Notification.requestPermission();
             }
-        };
 
+            if (Notification.permission !== 'granted') {
+                console.error('El usuario no ha concedido permisos para notificaciones.');
+                return;
+            }
 
-        // Solicita permisos al cargar la página
-        requestNotificationPermission();
+            // Obtén el token de FCM
+            const token = await getToken(messaging, {
+                vapidKey: "BPRKz7-_9El7FWTG7hpCTGhl_cPRoWK79Ng2UwgOuctmGQc3sxG0Rg2io2aAsvYFvBDPmF9vd-6g6oG65XQmJ4A"
+            });
 
-        // Maneja mensajes recibidos en primer plano
-        onMessage(messaging, (payload) => {
-            console.log("Mensaje recibido:", payload);
-            alert(`Notificación: ${payload.notification.title}`);
+            if (token) {
+                console.log("FCM Token obtenido:", token);
+            } else {
+                console.error("No se pudo obtener el token. Es posible que el usuario haya rechazado los permisos.");
+            }
+        } catch (err) {
+            console.error("Error al obtener el token de FCM:", err);
+        }
+    };
+
+    // Solicita permisos al cargar la página
+    requestNotificationPermission();
+
+    // Maneja mensajes recibidos en primer plano
+    onMessage(messaging, (payload) => {
+        console.log("Mensaje recibido:", payload);
+        alert(`Notificación: ${payload.notification.title}`);
+    });
+
+    // Ahora registra el Service Worker
+    navigator.serviceWorker.register('firebase-messaging-sw.js')
+        .then((registration) => {
+            console.log('Service Worker registrado correctamente:', registration);
+            messaging.useServiceWorker(registration);
+        })
+        .catch((error) => {
+            console.error('Error al registrar el Service Worker:', error);
         });
 
+</script>
 
-    </script>
 
 
 
