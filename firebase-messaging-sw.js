@@ -15,7 +15,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 // Obtén el servicio de mensajería
-const messaging = firebase.messaging(app);
+const messaging = firebase.messaging();
 
 // Gestiona la recepción de notificaciones en segundo plano
 messaging.onBackgroundMessage((payload) => {
