@@ -42,7 +42,6 @@ self.addEventListener('install', (event) => {
                 'https://lverapizza.github.io/App/styles.css',
                 'https://lverapizza.github.io/App/script.js',
                 'https://lverapizza.github.io/App/img/logo_vera_pizza.png',
-                'https://lverapizza.github.io/App/firebase-messaging-sw.js',
                 // Agrega otros archivos necesarios
             ]).catch((error) => {
                 console.error('Error al almacenar en caché:', error);
