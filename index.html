@@ -371,19 +371,74 @@
         alert(`Notificación: ${payload.notification.title}`);
     });
 
-    // Registra el Service Worker directamente
+<script type="module">
+    // Importar Firebase y Cloud Messaging
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+    import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-messaging.js";
+
+    // Configuración de Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyCzMNKimcw1kaaJlMdTKj7RAdlsHyaImBk",
+        authDomain: "vera-pizza-app.firebaseapp.com",
+        projectId: "vera-pizza-app",
+        storageBucket: "vera-pizza-app.appspot.com",
+        messagingSenderId: "783988757356",
+        appId: "1:783988757356:web:c66d3f2571aff0f125d949",
+        measurementId: "G-FNLSPHKXFW"
+    };
+
+    // Inicializar Firebase
+    const app = initializeApp(firebaseConfig);
+
+    // Inicializar el servicio de mensajería
+    const messaging = getMessaging(app);
+
+    // Solicitar permisos para notificaciones
+    const requestNotificationPermission = async () => {
+        try {
+            if (Notification.permission === 'default') {
+                await Notification.requestPermission();
+            }
+
+            if (Notification.permission !== 'granted') {
+                console.error('El usuario no ha concedido permisos para notificaciones.');
+                return;
+            }
+
+            // Obtener el token FCM
+            const token = await getToken(messaging, {
+                vapidKey: "BPRKz7-_9El7FWTG7hpCTGhl_cPRoWK79Ng2UwgOuctmGQc3sxG0Rg2io2aAsvYFvBDPmF9vd-6g6oG65XQmJ4A"
+            });
+
+            if (token) {
+                console.log("FCM Token obtenido:", token);
+            } else {
+                console.error("No se pudo obtener el token. Es posible que el usuario haya rechazado los permisos.");
+            }
+        } catch (err) {
+            console.error("Error al obtener el token de FCM:", err);
+        }
+    };
+
+    // Solicitar permisos al cargar la página
+    requestNotificationPermission();
+
+    // Manejar mensajes recibidos en primer plano
+    onMessage(messaging, (payload) => {
+        console.log("Mensaje recibido:", payload);
+        alert(`Notificación: ${payload.notification.title}`);
+    });
+
+    // Registrar el Service Worker
     navigator.serviceWorker.register('firebase-messaging-sw.js')
         .then((registration) => {
             console.log('Service Worker registrado correctamente:', registration);
-            // Ahora ya no es necesario usar `messaging.useServiceWorker()`
-            messaging.onBackgroundMessage((payload) => {
-                console.log('Mensaje recibido en segundo plano:', payload);
-                // Aquí puedes mostrar notificaciones en segundo plano si es necesario
-            });
         })
         .catch((error) => {
             console.error('Error al registrar el Service Worker:', error);
         });
+</script>
+
 </script>
 
 
