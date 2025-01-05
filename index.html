@@ -356,7 +356,7 @@ const requestNotificationPermission = async () => {
         }
 
         // Obtener el token FCM
-        const token = await getToken(messaging, {
+        getToken(messaging, {
             vapidKey: "BBXezko_271Xj7E6B2hK-M3i_80PWZOXQvQ8FbDphcoViRMGOyLKoiVhbU7VwQ-gt3UAW3JXsbFWmd7YG5xBn78"
         });
 
