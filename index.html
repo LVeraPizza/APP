@@ -9,7 +9,7 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JY074PKZHG"></script>
     <!-- Enlace al manifest.json -->
-    <link rel="manifest" href="https://lverapizza.github.io/APP/manifest.json">
+    <link rel="manifest" href="https://lverapizza.github.io/App/manifest.json">
 
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -312,7 +312,7 @@
         setInterval(createSnowflake, 300); // Genera un copo nuevo cada 300ms
     </script>-->
     <script>
-        navigator.serviceWorker.register('./firebase-messaging-sw.js')
+        navigator.serviceWorker.register('https://lverapizza.github.io/)
             .then((registration) => {
                 console.log('Service Worker registrado correctamente:', registration);
                 messaging.useServiceWorker(registration);
