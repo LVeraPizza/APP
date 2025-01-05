@@ -331,10 +331,10 @@
     // Inicializar Firebase
     const app = initializeApp(firebaseConfig);
 
-    // Inicializar el servicio de mensajería (debe estar fuera de la función)
+    // Inicializar el servicio de mensajería
     const messaging = getMessaging(app);
 
-    // Registrar el Service Worker
+    // Registrar el Service Worker (si no está funcionando en segundo plano, aún deberías obtener el token)
     navigator.serviceWorker.register('firebase-messaging-sw.js')
         .then((registration) => {
             console.log('Service Worker registrado correctamente:', registration);
@@ -343,13 +343,12 @@
             console.error('Error al registrar el Service Worker:', error);
         });
 
-    // Función para solicitar permisos de notificación y obtener el token
+    // Función para solicitar permiso y obtener el token
     const requestNotificationPermission = async () => {
         try {
-            console.log("Entrando en la función requestNotificationPermission...");
-            
+            // Verificar si ya se ha concedido permiso para notificaciones
             if (Notification.permission === 'default') {
-                console.log("Solicitud de permiso de notificación...");
+                console.log("Solicitando permiso para notificaciones...");
                 const permission = await Notification.requestPermission();
                 console.log("Permiso recibido:", permission);
 
@@ -358,7 +357,7 @@
                     return;
                 }
             } else {
-                console.log("Permiso ya está configurado:", Notification.permission);
+                console.log("Permiso ya concedido:", Notification.permission);
             }
 
             // Intentar obtener el token
@@ -371,7 +370,7 @@
                 console.log("FCM Token obtenido:", token);
                 localStorage.setItem('fcmToken', token); // Guardar el token
             } else {
-                console.error("No se pudo obtener el token.");
+                console.error("No se pudo obtener el token. Puede que el usuario haya rechazado los permisos.");
             }
         } catch (err) {
             console.error("Error al obtener el token de FCM:", err);
@@ -380,7 +379,6 @@
 
     // Llamar a la función para solicitar permisos y obtener el token
     requestNotificationPermission();
-
 </script>
 
 
