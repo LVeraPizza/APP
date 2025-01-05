@@ -1,6 +1,8 @@
-importScripts('https://www.gstatic.com/firebasejs/9.18.0/firebase-app-compat.js');
-importScripts('https://www.gstatic.com/firebasejs/9.18.0/firebase-messaging-compat.js');
+// firebase-messaging-sw.js
+importScripts('https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/9.18.0/firebase-messaging.js');
 
+// Configuración de Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyCzMNKimcw1kaaJlMdTKj7RAdlsHyaImBk",
     authDomain: "vera-pizza-app.firebaseapp.com",
@@ -11,7 +13,7 @@ const firebaseConfig = {
     measurementId: "G-FNLSPHKXFW"
 };
 
-// Inicializa Firebase en el SW
+// Inicializa Firebase en el Service Worker
 firebase.initializeApp(firebaseConfig);
 
 // Obtén el servicio de mensajería
@@ -32,7 +34,7 @@ messaging.onBackgroundMessage((payload) => {
     self.registration.showNotification(notificationTitle, notificationOptions);
 });
 
-// Instalación y cacheo de archivos
+// Instalación y cacheo de archivos (opcional si necesitas un Service Worker para cachear)
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open('my-cache-name').then((cache) => {
@@ -41,7 +43,7 @@ self.addEventListener('install', (event) => {
                 '/styles.css',
                 '/script.js',
                 '/img/logo_vera_pizza.png',
-                'firebase-messaging-sw.js',
+                '/firebase-messaging-sw.js',
                 // Agrega otros archivos necesarios
             ]).catch((error) => {
                 console.error('Error al almacenar en caché:', error);
@@ -50,7 +52,7 @@ self.addEventListener('install', (event) => {
     );
 });
 
-// Manejo de solicitudes de red
+// Manejo de solicitudes de red (opcional si necesitas manejar el cacheo de archivos)
 self.addEventListener('fetch', (event) => {
     event.respondWith(
         caches.match(event.request).then((cachedResponse) => {
