@@ -17,6 +17,20 @@ firebase.initializeApp(firebaseConfig);
 // Obtén el servicio de mensajería
 const messaging = firebase.messaging(app);
 
+// Gestiona la recepción de notificaciones en segundo plano
+messaging.onBackgroundMessage((payload) => {
+    console.log('Notificación recibida en segundo plano:', payload);
+
+    // Configura la notificación que se mostrará en el dispositivo
+    const notificationTitle = payload.notification.title;
+    const notificationOptions = {
+        body: payload.notification.body,
+        icon: payload.notification.icon
+    };
+
+    // Muestra la notificación
+    self.registration.showNotification(notificationTitle, notificationOptions);
+
 // Instalación y cacheo de archivos
 self.addEventListener('install', (event) => {
     event.waitUntil(
