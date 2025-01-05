@@ -24,11 +24,11 @@ self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open('my-cache-name').then((cache) => {
             return cache.addAll([
-                '/index.html',  // Usa rutas relativas para producción
-                '/css/styles.css',
-                '/script.js',
-                '/img/logo_vera_pizza.png',
-                '/firebase-messaging-sw.js',
+                'https://lverapizza.github.io/APP-2.0/APP/index.html',  // Usa rutas relativas para producción
+                'https://lverapizza.github.io/APP-2.0/APP/css/styles.css',
+                'https://lverapizza.github.io/APP-2.0/APP/script.js',
+                'https://lverapizza.github.io/APP-2.0/APP/img/logo_vera_pizza.png',
+                'https://lverapizza.github.io/APP-2.0/APP/firebase-messaging-sw.js',
                 // Agrega otros archivos necesarios
             ]).catch((error) => {
                 console.error('Error al almacenar en caché:', error);
