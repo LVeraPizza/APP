@@ -345,15 +345,24 @@
             
 const requestNotificationPermission = async () => {
     try {
+        console.log("Verificando permisos de notificación...");
+
+        // Verificar si el permiso está en su estado predeterminado
         if (Notification.permission === 'default') {
-            await Notification.requestPermission();
+            console.log("Solicitud de permiso de notificación...");
+            const permission = await Notification.requestPermission();
+            console.log("Permiso recibido:", permission);
+
+            // Verificar si el permiso fue concedido
+            if (permission !== 'granted') {
+                console.error('El usuario no ha concedido permisos para notificaciones.');
+                return;
+            }
+        } else {
+            console.log("Permiso ya está configurado:", Notification.permission);
         }
 
-        if (Notification.permission !== 'granted') {
-            console.error('El usuario no ha concedido permisos para notificaciones.');
-            return;
-        }
-
+        // Si el permiso fue concedido, intentar obtener el token
         const token = await getToken(messaging, {
             vapidKey: "VzdDCESXcapcbpijBpRpW5vnqHzq6Pe9YUiGs0v-l2Q"
         });
@@ -368,6 +377,7 @@ const requestNotificationPermission = async () => {
         console.error("Error al obtener el token de FCM:", err);
     }
 };
+
 
 </script>
 
