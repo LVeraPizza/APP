@@ -313,9 +313,9 @@
     </script>-->
 
 <script type="module">
-   // firebase-messaging-sw.js
-importScripts('https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/9.18.0/firebase-messaging.js');
+   // Importar Firebase y Cloud Messaging
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+    import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-messaging.js";
 
 // Configuración de Firebase
 const firebaseConfig = {
