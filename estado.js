@@ -39,11 +39,4 @@ window.onload = function () {
 };*/
 
 
-// Registrar el Service Worker (si no está funcionando en segundo plano, aún deberías obtener el token)
-navigator.serviceWorker.register('/App/firebase-messaging-sw.js')
-    .then((registration) => {
-        console.log('Service Worker registrado correctamente:', registration);
-    })
-    .catch((error) => {
-        console.error('Error al registrar el Service Worker:', error);
-    });
+
