@@ -313,7 +313,6 @@
     </script>-->
 
 <script type="module">
-
     // Importar Firebase y Cloud Messaging
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
     import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-messaging.js";
@@ -329,6 +328,12 @@
         measurementId: "G-FNLSPHKXFW"
     };
 
+    // Inicializar Firebase
+    const app = initializeApp(firebaseConfig);
+
+    // Inicializar el servicio de mensajería (debe estar fuera de la función)
+    const messaging = getMessaging(app);
+
     // Registrar el Service Worker
     navigator.serviceWorker.register('firebase-messaging-sw.js')
         .then((registration) => {
@@ -338,55 +343,46 @@
             console.error('Error al registrar el Service Worker:', error);
         });
 
-    // Inicializar Firebase
-    const app = initializeApp(firebaseConfig);
+    // Función para solicitar permisos de notificación y obtener el token
+    const requestNotificationPermission = async () => {
+        try {
+            console.log("Entrando en la función requestNotificationPermission...");
+            
+            if (Notification.permission === 'default') {
+                console.log("Solicitud de permiso de notificación...");
+                const permission = await Notification.requestPermission();
+                console.log("Permiso recibido:", permission);
 
-    console.log("Inicializando el servicio de mensajería...");
-try {
-    const messaging = getMessaging(app);
-    console.log("Servicio de mensajería inicializado.");
-} catch (error) {
-    console.error("Error al inicializar el servicio de mensajería:", error);
-}
-
-
-const requestNotificationPermission = async () => {
-    try {
-        console.log("Verificando permisos de notificación...");
-
-        if (Notification.permission === 'default') {
-            console.log("Solicitud de permiso de notificación...");
-            const permission = await Notification.requestPermission();
-            console.log("Permiso recibido:", permission);
-
-            if (permission !== 'granted') {
-                console.error('El usuario no ha concedido permisos para notificaciones.');
-                return;
+                if (permission !== 'granted') {
+                    console.error('El usuario no ha concedido permisos para notificaciones.');
+                    return;
+                }
+            } else {
+                console.log("Permiso ya está configurado:", Notification.permission);
             }
-        } else {
-            console.log("Permiso ya está configurado:", Notification.permission);
-        }
 
-        // Agregar un log para verificar que esta parte se ejecuta
-        console.log("Intentando obtener el token...");
-        const token = await getToken(messaging, {
-            vapidKey: "BBXezko_271Xj7E6B2hK-M3i_80PWZOXQvQ8FbDphcoViRMGOyLKoiVhbU7VwQ-gt3UAW3JXsbFWmd7YG5xBn78"
-        });
+            // Intentar obtener el token
+            console.log("Intentando obtener el token...");
+            const token = await getToken(messaging, {
+                vapidKey: "BBXezko_271Xj7E6B2hK-M3i_80PWZOXQvQ8FbDphcoViRMGOyLKoiVhbU7VwQ-gt3UAW3JXsbFWmd7YG5xBn78"
+            });
 
-        if (token) {
-            console.log("FCM Token obtenido:", token);
-            localStorage.setItem('fcmToken', token);
-        } else {
-            console.error("No se pudo obtener el token.");
+            if (token) {
+                console.log("FCM Token obtenido:", token);
+                localStorage.setItem('fcmToken', token); // Guardar el token
+            } else {
+                console.error("No se pudo obtener el token.");
+            }
+        } catch (err) {
+            console.error("Error al obtener el token de FCM:", err);
         }
-    } catch (err) {
-        console.error("Error al obtener el token de FCM:", err);
-    }
-};
-// Llamar a la función para solicitar permisos y obtener el token
-requestNotificationPermission();
+    };
+
+    // Llamar a la función para solicitar permisos y obtener el token
+    requestNotificationPermission();
 
 </script>
+
 
 
 </body>
