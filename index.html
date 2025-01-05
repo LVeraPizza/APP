@@ -348,6 +348,8 @@ try {
 } catch (error) {
     console.error("Error al inicializar el servicio de mensajería:", error);
 }
+// Llamar a la función para solicitar permisos y obtener el token
+requestNotificationPermission();
 
 const requestNotificationPermission = async () => {
     try {
