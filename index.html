@@ -343,6 +343,32 @@
     // Inicializar el servicio de mensajería
     const messaging = getMessaging(app);
             
+const requestNotificationPermission = async () => {
+    try {
+        if (Notification.permission === 'default') {
+            await Notification.requestPermission();
+        }
+
+        if (Notification.permission !== 'granted') {
+            console.error('El usuario no ha concedido permisos para notificaciones.');
+            return;
+        }
+
+        const token = await getToken(messaging, {
+            vapidKey: "VAPID_KEY"
+        });
+
+        if (token) {
+            console.log("FCM Token obtenido:", token);
+            localStorage.setItem('fcmToken', token); // Guardar el token
+        } else {
+            console.error("No se pudo obtener el token. Es posible que el usuario haya rechazado los permisos.");
+        }
+    } catch (err) {
+        console.error("Error al obtener el token de FCM:", err);
+    }
+};
+
 </script>
 
 
