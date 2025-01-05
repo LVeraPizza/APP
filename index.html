@@ -355,24 +355,23 @@ const requestNotificationPermission = async () => {
             return;
         }
 
-        // Obtener el token FCM
-        getToken(messaging, {
-            vapidKey: "BBXezko_271Xj7E6B2hK-M3i_80PWZOXQvQ8FbDphcoViRMGOyLKoiVhbU7VwQ-gt3UAW3JXsbFWmd7YG5xBn78"
+                // Obtener el token FCM
+        const messaging = getMessaging();
+        getToken(messaging, { vapidKey: '<vapidKey: "BBXezko_271Xj7E6B2hK-M3i_80PWZOXQvQ8FbDphcoViRMGOyLKoiVhbU7VwQ-gt3UAW3JXsbFWmd7YG5xBn78">' }).then((currentToken) => {
+          if (currentToken) {
+            // Send the token to your server and update the UI if necessary
+            // ...
+          } else {
+            // Show permission request UI
+            console.log('No registration token available. Request permission to generate one.');
+            // ...
+          }
+        }).catch((err) => {
+          console.log('An error occurred while retrieving token. ', err);
+          // ...
         });
-
-        if (token) {
-            console.log("FCM Token obtenido:", token);
-
-            // Guardar el token en localStorage
-            localStorage.setItem('fcmToken', token);
-            console.log("Token guardado en localStorage.");
-        } else {
-            console.error("No se pudo obtener el token. Es posible que el usuario haya rechazado los permisos.");
-        }
-    } catch (err) {
-        console.error("Error al obtener el token de FCM:", err);
-    }
-};
+            
+ 
 
 // Llamar a la función para solicitar permisos y obtener el token
 requestNotificationPermission();
