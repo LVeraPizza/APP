@@ -312,7 +312,7 @@
         setInterval(createSnowflake, 300); // Genera un copo nuevo cada 300ms
     </script>-->
 
-   <script type="module">
+  <script type="module">
     // Importa Firebase y el módulo de Cloud Messaging
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
     import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-messaging.js";
@@ -371,16 +371,19 @@
         alert(`Notificación: ${payload.notification.title}`);
     });
 
-    // Ahora registra el Service Worker
+    // Registra el Service Worker directamente
     navigator.serviceWorker.register('firebase-messaging-sw.js')
         .then((registration) => {
             console.log('Service Worker registrado correctamente:', registration);
-            messaging.useServiceWorker(registration);
+            // Ahora ya no es necesario usar `messaging.useServiceWorker()`
+            messaging.onBackgroundMessage((payload) => {
+                console.log('Mensaje recibido en segundo plano:', payload);
+                // Aquí puedes mostrar notificaciones en segundo plano si es necesario
+            });
         })
         .catch((error) => {
             console.error('Error al registrar el Service Worker:', error);
         });
-
 </script>
 
 
