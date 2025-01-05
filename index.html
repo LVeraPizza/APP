@@ -366,13 +366,15 @@ const requestNotificationPermission = async () => {
             console.log("Permiso ya está configurado:", Notification.permission);
         }
 
+        // Agregar un log para verificar que esta parte se ejecuta
+        console.log("Intentando obtener el token...");
         const token = await getToken(messaging, {
             vapidKey: "VzdDCESXcapcbpijBpRpW5vnqHzq6Pe9YUiGs0v-l2Q"
         });
 
         if (token) {
             console.log("FCM Token obtenido:", token);
-            localStorage.setItem('fcmToken', token); 
+            localStorage.setItem('fcmToken', token);
         } else {
             console.error("No se pudo obtener el token.");
         }
@@ -380,6 +382,7 @@ const requestNotificationPermission = async () => {
         console.error("Error al obtener el token de FCM:", err);
     }
 };
+
 
 </script>
 
