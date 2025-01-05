@@ -1,15 +1,15 @@
 {
-  "start_url": "https://lverapizza.github.io/App/principal.html",
+  "start_url": "https://lverapizza.github.io/APP-2.0/principal.html",
   "name": " La Vera Pizza",
   "short_name": "LVP",
   "icons": [
     {
-      "src": "https://lverapizza.github.io/App/img/eventos/logo_año_nuevo.png",
+      "src": "https://lverapizza.github.io/APP-2.0/img/eventos/logo_año_nuevo.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://lverapizza.github.io/App/img/eventos/logo_año_nuevo.png",
+      "src": "https://lverapizza.github.io/APP-2.0/img/eventos/logo_año_nuevo.png",
       "sizes": "512x512",
       "type": "image/png"
     }
