@@ -23,7 +23,7 @@ messaging.onBackgroundMessage(function(payload) {
     const notificationTitle = 'Nuevo pedido';
     const notificationOptions = {
         body: payload.notification.body,
-        icon: '/img/logo_vera_pizza.png',
+        icon: '/img/logos/logo_vera_pizza.png',
     };
 
     self.registration.showNotification(notificationTitle, notificationOptions);
