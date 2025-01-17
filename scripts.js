@@ -76,7 +76,7 @@ function getProductPrice(productName) {
         "Focaccia Rucula y JC": 8000,
         "Panini Rucula y JC": 8000,
         "Calzone Clasico": 7000,
-        "2 Pizzas Romanas": 16000,//promocion 1
+        "3 X 2": 20000,//promocion 1
         "1 Rucula y jC + 1 Pepperoni": 16000, //promocion 2
         "1 Margherita + 1 Focaccia": 14000, // promocion 3
         "2 Pizzas Margheritas": 14000, // promocion puntos
