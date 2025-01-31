@@ -36,7 +36,7 @@ window.onload = function () {
         statusBar.style.backgroundColor = "red";
         localStorage.setItem("estadoPedido", "cerrado");
     }
-};
+};*/
 
 
 
