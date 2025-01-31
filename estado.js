@@ -1,4 +1,4 @@
-/* window.onload = function () {
+ window.onload = function () {
     const statusBar = document.getElementById("status-bar");
     const currentDate = new Date();
     const currentDay = currentDate.getDay();
@@ -18,9 +18,9 @@
         statusBar.style.backgroundColor = "red";
         localStorage.setItem("estadoPedido", "cerrado");
     }
-};*/
+};
 
- // CON ESTE CODIGO FORZAMOS QUE EL DIA DE =(HOY) ESTE CERRADO
+ /*/ CON ESTE CODIGO FORZAMOS QUE EL DIA DE =(HOY) ESTE CERRADO
 window.onload = function () {
     const statusBar = document.getElementById("status-bar");
 
